@@ -1,0 +1,31 @@
+export interface IInfo {
+  _id?: string;
+  fightId?: number;
+  startTime?: string;
+  piste?: string;
+  compe?: string;
+  phase?: number;
+  poulTab?: string;
+  match?: number;
+  round?: number;
+  referees?: string[];
+  stopwatch?: string;
+  priority?: string;
+  state?: string;
+  nicknameRight?: number;
+  scoreRight?: number;
+  yCardRight?: number;
+  rCardRight?: number;
+  medicalRight?: string;
+  pCardRight?: number;
+  currentFightScoreRight?: number;
+  videoRight?: number;
+  nicknameLeft?: number;
+  scoreLeft?: number;
+  yCardLeft?: number;
+  rCardLeft?: number;
+  medicalLeft?: string;
+  pCardLeft?: number;
+  currentFightScoreLeft?: number;
+  videoLeft?: number;
+}
