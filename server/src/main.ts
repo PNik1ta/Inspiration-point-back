@@ -5,7 +5,16 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    
+    origin: [
+      'http://localhost:3000',
+      'http://inponline.store',
+      'http://www.inponline.store',
+      'https://inponline.store',
+      'https://www.inponline.store',
+      'https://inponline.ru'
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   });
   app.setGlobalPrefix('api');
 
