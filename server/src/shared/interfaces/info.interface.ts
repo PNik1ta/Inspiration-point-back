@@ -16,7 +16,7 @@ export interface IInfo {
   scoreRight?: number;
   yCardRight?: number;
   rCardRight?: number;
-  medicalRight?: string;
+  medicalRight?: number;
   pCardRight?: number;
   currentFightScoreRight?: number;
   videoRight?: number;
@@ -24,7 +24,7 @@ export interface IInfo {
   scoreLeft?: number;
   yCardLeft?: number;
   rCardLeft?: number;
-  medicalLeft?: string;
+  medicalLeft?: number;
   pCardLeft?: number;
   currentFightScoreLeft?: number;
   videoLeft?: number;

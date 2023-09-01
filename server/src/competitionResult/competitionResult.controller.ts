@@ -45,6 +45,16 @@ export class CompetitionResultController {
 	}
 
 	@ApiOkResponse({
+		description: 'competition result by competition id',
+		type: CompetitionResult,
+	})
+	@Get('find-by-competition-id/:compId')
+	@HttpCode(200)
+	findByCompetitionId(@Param('compId') compId: string): Promise<BaseResponse<CompetitionResult>> {
+		return this.competitionResultService.findByCompetitionId(compId);
+	}
+
+	@ApiOkResponse({
 		description: 'Deleted competition result',
 		type: CompetitionResult,
 	})

@@ -6,6 +6,6 @@ export interface IFormulae {
   pointsInPools?: number;
   pointsInBrackets?: number;
   athletesQuantityBrackets?: number;
-  allPlacesFence?: boolean;
+  allPlacesFence?: string;
   consolation?: number;
 }

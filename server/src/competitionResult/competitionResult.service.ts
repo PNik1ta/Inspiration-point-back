@@ -42,7 +42,17 @@ export class CompetitionResultService {
 		const competitionResult = await this.competitionResultRepository.findById(id);
 
 		if (!competitionResult) {
-			throw new Error(COMPETITION_RESULT_FIND_ERROR);
+			return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ERROR, null);
+		}
+
+		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ONE, competitionResult);
+	}
+
+	async findByCompetitionId(compId: string): Promise<BaseResponse<CompetitionResult>> {
+		const competitionResult = await this.competitionResultRepository.findByCompetitionId(compId);
+
+		if (!competitionResult) {
+			return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ERROR, null);
 		}
 
 		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ONE, competitionResult);

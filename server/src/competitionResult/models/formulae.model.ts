@@ -23,7 +23,7 @@ export class Formulae extends Document implements IFormulae {
 	athletesQuantityBrackets?: number;
 
 	@Prop()
-	allPlacesFence?: boolean;
+	allPlacesFence?: string;
 
 	@Prop()
 	consolation?: number;

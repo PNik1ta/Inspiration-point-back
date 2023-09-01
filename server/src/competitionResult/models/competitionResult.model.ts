@@ -24,34 +24,34 @@ import { InfoSchema } from "./info.model";
 
 @Schema()
 export class CompetitionResult extends Document implements ICompetitionResult {
-	@Prop({ required: true, type: NewCompetitionFormSchema })
+	@Prop({ required: false, type: NewCompetitionFormSchema })
 	newCompetitionForm: INewCompetitionForm;
 
-	@Prop({ required: true, type: ParticipantFormSchema })
+	@Prop({ required: false, type: [ParticipantFormSchema] })
 	participantFormList: IParticipantForm[];
 
-	@Prop({ required: true, type: AthSchema })
+	@Prop({ required: false, type: [AthSchema] })
 	athList: IAth[];
 
-	@Prop({ required: true, type: RefSchema })
+	@Prop({ required: false, type: [RefSchema] })
 	refList: IRef[];
 
-	@Prop({ required: true, type: FormulaeSchema })
+	@Prop({ required: false, type: FormulaeSchema })
 	formulae: IFormulae;
 
-	@Prop({ required: true, type: GroupInitialSchema })
+	@Prop({ required: false, type: [GroupInitialSchema] })
 	groupsInitial: IGroupInitial[];
 
-	@Prop({ required: true, type: GroupResultSchema })
+	@Prop({ required: false, type: [GroupResultSchema] })
 	groupsResults: IGroupResult[];
 
-	@Prop({ required: true, type: BracketInitialSchema })
+	@Prop({ required: false, type: [BracketInitialSchema] })
 	bracketsInitial: IBracketInitial[];
 
-	@Prop({ required: true, type: BracketResultSchema })
+	@Prop({ required: false, type: [BracketResultSchema] })
 	bracketsResults: IBracketResult[];
 
-	@Prop({ required: true, type: InfoSchema })
+	@Prop({ required: false, type: [InfoSchema] })
 	info: IInfo[];
 }
 

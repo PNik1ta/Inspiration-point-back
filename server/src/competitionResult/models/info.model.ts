@@ -53,7 +53,7 @@ export class Info extends Document implements IInfo {
 	rCardRight?: number;
 
 	@Prop()
-	medicalRight?: string;
+	medicalRight?: number;
 
 	@Prop()
 	pCardRight?: number;
@@ -77,7 +77,7 @@ export class Info extends Document implements IInfo {
 	rCardLeft?: number;
 
 	@Prop()
-	medicalLeft?: string;
+	medicalLeft?: number;
 
 	@Prop()
 	pCardLeft?: number;

@@ -8,7 +8,7 @@ import { CompetitionResultEntity } from "../entities/competitionResult.entity";
 export class CompetitionResultRepository {
 	constructor(
 		@InjectModel(CompetitionResult.name) private readonly competitionResultModel: Model<CompetitionResult>
-	) {}
+	) { }
 
 	async create(competitionResult: CompetitionResultEntity): Promise<CompetitionResult> {
 		const newCompetitionResult = new this.competitionResultModel(competitionResult);
@@ -23,11 +23,15 @@ export class CompetitionResultRepository {
 		return this.competitionResultModel.findById(id).exec();
 	}
 
+	async findByCompetitionId(compId: string): Promise<CompetitionResult> {
+		return this.competitionResultModel.findOne({ 'newCompetitionForm.competitionId': compId });
+	}
+
 	async delete(id: string): Promise<any> {
 		return this.competitionResultModel.deleteOne({ _id: id }).exec();
 	}
 
 	async update({ _id, ...rest }: CompetitionResultEntity) {
-		return this.competitionResultModel.updateOne({ _id }, { $set: { ...rest }});
+		return this.competitionResultModel.updateOne({ _id }, { $set: { ...rest } });
 	}
 }

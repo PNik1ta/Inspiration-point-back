@@ -5,6 +5,9 @@ import { INewCompetitionForm } from "../../shared/interfaces/newCompetitionForm.
 @Schema()
 export class NewCompetitionForm extends Document implements INewCompetitionForm {
 	@Prop()
+	competitionId: string;
+
+	@Prop()
 	competitionName?: string;
 
 	@Prop()
