@@ -29,7 +29,7 @@ export class Info extends Document implements IInfo {
 	round?: number;
 
 	@Prop()
-	referees?: string[];
+	referees?: number[];
 
 	@Prop()
 	stopwatch?: string;
