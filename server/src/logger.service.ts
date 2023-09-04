@@ -2,6 +2,7 @@ import { Injectable, LogLevel, LoggerService, OnModuleInit } from "@nestjs/commo
 import pino from 'pino';
 import { Client } from '@elastic/elasticsearch';
 import { ConfigService } from "@nestjs/config";
+import { parse } from "date-fns";
 
 @Injectable()
 export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
@@ -11,7 +12,7 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 	constructor(private readonly configService: ConfigService) {
 		this.logger = pino();
 		console.log(configService.get('ES_HOST'));
-		
+
 		this.esClient = new Client({ node: `http://${configService.get('ES_HOST')}:9200` });
 	}
 
@@ -19,7 +20,7 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 		this.logger.info(message);
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'info' },
+			body: { message, level: 'info', date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
 		});
 	}
 
@@ -27,21 +28,21 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 		this.logger.error(message, { trace });
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'error', trace },
+			body: { message, level: 'error', trace, date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
 		});
 	}
 	warn(message: string) {
 		this.logger.warn(message);
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'warn' },
+			body: { message, level: 'warn', date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
 		});
 	}
 	debug(message: string) {
 		this.logger.debug(message);
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'debug' },
+			body: { message, level: 'debug', date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
 		});
 	}
 
@@ -49,7 +50,7 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 		this.logger.trace(message);
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'verbose' },
+			body: { message, level: 'verbose', date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
 		});
 	}
 
@@ -61,7 +62,8 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 				url,
 				body,
 				status,
-				level: 'info'
+				level: 'info',
+				date: parse(new Date().toString(), 'dd:MM:yyyy', new Date())
 			}
 		})
 	}
