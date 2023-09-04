@@ -6,10 +6,12 @@ import { LoggerModule } from 'nestjs-pino';
 import { CompetitionResultModule } from './competitionResult/competitionResult.module';
 import { stdTimeFunctions } from 'pino';
 import { ElasticsearchLoggerService } from './logger.service';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+    PrometheusModule.register(),
     LoggerModule.forRoot({
       pinoHttp: {
         timestamp: stdTimeFunctions.isoTime,

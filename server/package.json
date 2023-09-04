@@ -29,15 +29,18 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^7.1.10",
     "@types/date-fns": "^2.6.0",
+    "@willsoto/nestjs-prometheus": "^5.3.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "date-fns": "^2.30.0",
     "mongoose": "^7.5.0",
     "nestjs-pino": "^3.4.0",
     "pino": "^8.15.0",
+    "prom-client": "^14.2.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
