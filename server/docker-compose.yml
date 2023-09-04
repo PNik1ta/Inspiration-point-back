@@ -1,5 +1,32 @@
 version: '3'
 services:
+  elasticsearch:
+    hostname: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
+    environment:
+      - discovery.type=single-node
+      - network.host=0.0.0.0
+      # Elasticsearch 8.x has HTTPS and auth on by default. This option is
+      # needed to use HTTP and no auth (as used in the tests).
+      - xpack.security.enabled=false
+    container_name: elasticsearch
+    ports: ['9200:9200']
+    volumes:
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    networks:
+      - elk
+
+  kibana:
+    hostname: kibana
+    image: docker.elastic.co/kibana/kibana:8.3.3
+    container_name: kibana
+    ports: ['5601:5601']
+    depends_on: ['elasticsearch']
+    networks:
+      - elk
+
   mongo:
     image: mongo
     container_name: inspiration-point-mongo
@@ -12,14 +39,30 @@ services:
     volumes:
       - ./mongo-data:/data/db
     command: --wiredTigerCacheSizeGB 1.5
+    networks:
+      - elk
+
   backend: 
+    hostname: inspiration-point-backend
     container_name: inspiration-point-backend
     build: 
       context: ./
-    depends_on:
-    - mongo
     restart: unless-stopped
+    depends_on:
+      - mongo
+      - elasticsearch
+    environment:
+      - ES_HOST=elasticsearch
+      - MONGO_HOST=mongo
+    
     ports:
       - 3000:3000
-    environment:
-      - MONGO_HOST=mongo
+    networks:
+      - elk
+
+networks:
+  elk: 
+    driver: bridge
+
+volumes: 
+  elasticsearch:
