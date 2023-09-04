@@ -36,18 +36,24 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     restart: unless-stopped
+    networks:
+      - elk
 
   grafana:
     image: grafana/grafana:8.1.3
+    user: "1000:1000"
     ports:
       - "3001:3000"
     volumes:
       - ./grafana:/var/lib/grafana
     depends_on:
       - prometheus
-    restart: always
+    restart: unless-stopped
     env_file: 
       .env
+    networks:
+      - elk
+    
 
   mongo:
     image: mongo
