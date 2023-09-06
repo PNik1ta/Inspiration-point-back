@@ -9,6 +9,7 @@ import { IInfo } from "../../shared/interfaces/info.interface";
 import { INewCompetitionForm } from "../../shared/interfaces/newCompetitionForm.interface";
 import { IParticipantForm } from "../../shared/interfaces/participantForm.interface";
 import { IRef } from "../../shared/interfaces/ref.interface";
+import { IGroup } from "../../shared/interfaces/group.interface";
 
 export class UpdateCompetitionResultDto {
 	@ApiProperty({
@@ -35,6 +36,11 @@ export class UpdateCompetitionResultDto {
 		description: 'Competition formulae'
 	})
 	formulae: IFormulae;
+
+	@ApiProperty({
+		description: 'Groups'
+	})
+	groups: IGroup[];
 
 	@ApiProperty({
 		description: 'Initial groups'

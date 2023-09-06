@@ -21,6 +21,8 @@ import { GroupResultSchema } from "./groupResult.model";
 import { BracketInitialSchema } from "./bracketInitial.model";
 import { BracketResultSchema } from "./bracketResult.model";
 import { InfoSchema } from "./info.model";
+import { IGroup } from "../../shared/interfaces/group.interface";
+import { GroupSchema } from "./group.model";
 
 @Schema()
 export class CompetitionResult extends Document implements ICompetitionResult {
@@ -38,6 +40,9 @@ export class CompetitionResult extends Document implements ICompetitionResult {
 
 	@Prop({ required: false, type: FormulaeSchema })
 	formulae: IFormulae;
+
+	@Prop({ required: false, type: GroupSchema })
+	groups: IGroup[];
 
 	@Prop({ required: false, type: [GroupInitialSchema] })
 	groupsInitial: IGroupInitial[];
