@@ -22,7 +22,6 @@ async function bootstrap() {
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   });
-  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
     .setTitle('Inspiration point')

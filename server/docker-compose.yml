@@ -79,6 +79,7 @@ services:
     depends_on:
       - mongo
       - elasticsearch
+      - prometheus
     environment:
       - ES_HOST=elasticsearch
       - MONGO_HOST=mongo
