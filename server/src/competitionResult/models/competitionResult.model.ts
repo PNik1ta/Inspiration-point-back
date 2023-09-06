@@ -41,7 +41,7 @@ export class CompetitionResult extends Document implements ICompetitionResult {
 	@Prop({ required: false, type: FormulaeSchema })
 	formulae: IFormulae;
 
-	@Prop({ required: false, type: GroupSchema })
+	@Prop({ required: false, type: [GroupSchema] })
 	groups: IGroup[];
 
 	@Prop({ required: false, type: [GroupInitialSchema] })
