@@ -14,6 +14,7 @@ import { Info, InfoSchema } from "./models/info.model";
 import { NewCompetitionForm, NewCompetitionFormSchema } from "./models/newCompetitionForm.model";
 import { ParticipantForm, ParticipantFormSchema } from "./models/participantForm.model";
 import { Ref, RefSchema } from "./models/ref.model";
+import { Group, GroupSchema } from "./models/group.model";
 
 @Module({
 	controllers: [CompetitionResultController],
@@ -30,6 +31,7 @@ import { Ref, RefSchema } from "./models/ref.model";
 		{ name: NewCompetitionForm.name, schema: NewCompetitionFormSchema },
 		{ name: ParticipantForm.name, schema: ParticipantFormSchema },
 		{ name: Ref.name, schema: RefSchema },
+		{ name: Group.name, schema: GroupSchema }
 	])],
 })
 export class CompetitionResultModule {}

@@ -20,6 +20,8 @@ export class CompetitionResultController {
 	@Post()
 	@HttpCode(201)
 	create(@Body() dto: CreateCompetitionResultDto): Promise<BaseResponse<CompetitionResult>> {
+		console.log(dto.groups);
+		
 		return this.competitionResultService.create(dto);
 	}
 
@@ -71,6 +73,7 @@ export class CompetitionResultController {
 	@Put(':id')
 	@HttpCode(200)
 	update(@Param('id') id: string, @Body() dto: UpdateCompetitionResultDto): Promise<BaseResponse<CompetitionResult>> {
+		console.log(dto.groups);
 		return this.competitionResultService.update(id, dto);
 	}
 }

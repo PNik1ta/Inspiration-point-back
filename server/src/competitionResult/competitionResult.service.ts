@@ -75,6 +75,7 @@ export class CompetitionResultService {
 		competitionResultEntity.bracketsInitial = dto.bracketsInitial;
 		competitionResultEntity.bracketsResults = dto.bracketsResults;
 		competitionResultEntity.formulae = dto.formulae;
+		competitionResultEntity.groups = dto.groups;
 		competitionResultEntity.groupsInitial = dto.groupsInitial;
 		competitionResultEntity.groupsResults = dto.groupsResults;
 		competitionResultEntity.info = dto.info;
