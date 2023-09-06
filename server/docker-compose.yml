@@ -46,6 +46,7 @@ services:
       - "3001:3000"
     volumes:
       - ./grafana:/var/lib/grafana
+      - ./grafana.ini:/etc/grafana/grafana.ini
     depends_on:
       - prometheus
     restart: unless-stopped
