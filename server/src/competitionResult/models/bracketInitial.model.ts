@@ -9,6 +9,15 @@ export class BracketInitial extends Document implements IBracketInitial {
 
 	@Prop()
 	bracketsRankNumber?: number;
+
+	@Prop()
+	tableauBr?: string;
+
+	@Prop()
+	matchBr?: number;
+
+	@Prop()
+	rankBr?: number;
 }
 
 export const BracketInitialSchema = SchemaFactory.createForClass(BracketInitial);

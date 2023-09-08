@@ -48,6 +48,16 @@ export class CompetitionResultService {
 		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ONE, competitionResult);
 	}
 
+	async findByCompetitionName(name: string): Promise<BaseResponse<CompetitionResult>> {
+		const competitionResult = await this.competitionResultRepository.findByCompetitionName(name);
+
+		if (!competitionResult) {
+			return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ERROR, null);
+		}
+
+		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ONE, competitionResult);
+	}
+
 	async findByCompetitionId(compId: string): Promise<BaseResponse<CompetitionResult>> {
 		const competitionResult = await this.competitionResultRepository.findByCompetitionId(compId);
 
@@ -60,6 +70,21 @@ export class CompetitionResultService {
 
 	async delete(id: string): Promise<BaseResponse<CompetitionResult>> {
 		await this.competitionResultRepository.delete(id);	
+		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_DELETED);
+	}
+
+	async deleteAll(): Promise<BaseResponse<CompetitionResult>> {
+		await this.competitionResultRepository.deleteAll();	
+		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_DELETED);
+	}
+
+	async deleteByCompetitionName(name: string): Promise<BaseResponse<CompetitionResult>> {
+		await this.competitionResultRepository.deleteByCompetitionName(name);	
+		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_DELETED);
+	}
+
+	async deleteByCompetitionId(id: string): Promise<BaseResponse<CompetitionResult>> {
+		await this.competitionResultRepository.deleteByCompetitionId(id);	
 		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_DELETED);
 	}
 

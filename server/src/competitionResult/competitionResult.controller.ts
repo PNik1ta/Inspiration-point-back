@@ -21,7 +21,7 @@ export class CompetitionResultController {
 	@HttpCode(201)
 	create(@Body() dto: CreateCompetitionResultDto): Promise<BaseResponse<CompetitionResult>> {
 		console.log(dto.groups);
-		
+
 		return this.competitionResultService.create(dto);
 	}
 
@@ -57,6 +57,16 @@ export class CompetitionResultController {
 	}
 
 	@ApiOkResponse({
+		description: 'competition result by competition name',
+		type: CompetitionResult,
+	})
+	@Get('find-by-competition-name/:name')
+	@HttpCode(200)
+	findByCompetitionName(@Param('name') name: string): Promise<BaseResponse<CompetitionResult>> {
+		return this.competitionResultService.findByCompetitionName(name);
+	}
+
+	@ApiOkResponse({
 		description: 'Deleted competition result',
 		type: CompetitionResult,
 	})
@@ -67,13 +77,42 @@ export class CompetitionResultController {
 	}
 
 	@ApiOkResponse({
+		description: 'Deleted competition result',
+		type: CompetitionResult,
+	})
+	@Delete('delete-all')
+	@HttpCode(200)
+	deleteAll(): Promise<BaseResponse<CompetitionResult>> {
+		return this.competitionResultService.deleteAll();
+	}
+
+	@ApiOkResponse({
+		description: 'Deleted competition result',
+		type: CompetitionResult,
+	})
+	@Delete('delete-by-competition-name/:name')
+	@HttpCode(200)
+	deleteByCompetitionName(@Param('name') name: string): Promise<BaseResponse<CompetitionResult>> {
+		return this.competitionResultService.deleteByCompetitionName(name);
+	}
+
+	@ApiOkResponse({
+		description: 'Deleted competition result',
+		type: CompetitionResult,
+	})
+	@Delete('delete-by-competition-id/:id')
+	@HttpCode(200)
+	deleteByCompetitionId(@Param('id') id: string): Promise<BaseResponse<CompetitionResult>> {
+		return this.competitionResultService.deleteByCompetitionId(id);
+	}
+
+	@ApiOkResponse({
 		description: 'Updated competition result',
 		type: CompetitionResult,
 	})
 	@Put(':id')
 	@HttpCode(200)
 	update(@Param('id') id: string, @Body() dto: UpdateCompetitionResultDto): Promise<BaseResponse<CompetitionResult>> {
-		console.log(dto.groups);
 		return this.competitionResultService.update(id, dto);
 	}
 }
