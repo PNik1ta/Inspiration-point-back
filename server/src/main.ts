@@ -10,7 +10,15 @@ async function bootstrap() {
   const loggerService = app.get(ElasticsearchLoggerService);
 
   app.enableCors({
-    origin: '*',
+    origin: [
+      'http://localhost:3000',
+      'http://inponline.store',
+      'http://www.inponline.store',
+      'https://inponline.store',
+      'https://www.inponline.store',
+      'https://inponline.ru',
+      'http://localhost:4200'
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   });
