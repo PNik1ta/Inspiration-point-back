@@ -37,7 +37,9 @@ async function bootstrap() {
 
   app.use((req: Request, res: Response, next) => {
     express.json()(req, res, () => {
-      loggerService.logHTTPRequest(req.method, req.url, JSON.stringify(req.body), res.statusCode);
+      if (req.url !== '/metrics') {
+        loggerService.logHTTPRequest(req.method, req.url, JSON.stringify(req.body), res.statusCode);
+      }
       next();
     })
   });
