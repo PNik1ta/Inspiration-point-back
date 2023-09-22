@@ -5,7 +5,7 @@ import { ConfigService } from "@nestjs/config";
 import { parse } from "date-fns";
 
 @Injectable()
-export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
+export class ElasticsearchLoggerService implements LoggerService {
 	private logger: pino.Logger;
 	private esClient: Client;
 
@@ -20,7 +20,7 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 		this.logger.info(message);
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'info', date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
+			body: { message, level: 'info', '@timestamp': new Date().toISOString() },
 		});
 	}
 
@@ -28,21 +28,21 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 		this.logger.error(message, { trace });
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'error', trace, date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
+			body: { message, level: 'error', trace, '@timestamp': new Date().toISOString() },
 		});
 	}
 	warn(message: string) {
 		this.logger.warn(message);
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'warn', date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
+			body: { message, level: 'warn', '@timestamp': new Date().toISOString() },
 		});
 	}
 	debug(message: string) {
 		this.logger.debug(message);
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'debug', date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
+			body: { message, level: 'debug', '@timestamp': new Date().toISOString() },
 		});
 	}
 
@@ -50,7 +50,7 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 		this.logger.trace(message);
 		this.esClient.index({
 			index: 'logs',
-			body: { message, level: 'verbose', date: parse(new Date().toString(), 'dd:MM:yyyy', new Date()) },
+			body: { message, level: 'verbose', '@timestamp': new Date().toISOString() },
 		});
 	}
 
@@ -63,12 +63,8 @@ export class ElasticsearchLoggerService implements LoggerService, OnModuleInit {
 				body,
 				status,
 				level: 'info',
-				date: parse(new Date().toString(), 'dd:MM:yyyy', new Date())
+				'@timestamp': new Date().toISOString()
 			}
 		})
-	}
-
-	onModuleInit() {
-		this.log('Server started!');
 	}
 }
