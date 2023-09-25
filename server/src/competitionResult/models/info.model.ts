@@ -87,6 +87,9 @@ export class Info extends Document implements IInfo {
 	
 	@Prop()
 	videoLeft?: number;
+
+	@Prop()
+	winner?: number;
 }
 
 export const InfoSchema = SchemaFactory.createForClass(Info);

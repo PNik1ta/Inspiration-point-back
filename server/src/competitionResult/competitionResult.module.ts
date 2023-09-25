@@ -1,8 +1,10 @@
 import { Module } from "@nestjs/common";
+import { MongooseModule } from "@nestjs/mongoose";
+
 import { CompetitionResultController } from "./competitionResult.controller";
 import { CompetitionResultRepository } from "./repositories/competitionResult.repository";
 import { CompetitionResultService } from "./competitionResult.service";
-import { MongooseModule } from "@nestjs/mongoose";
+
 import { CompetitionResult, CompetitionResultSchema } from "./models/competitionResult.model";
 import { Ath, AthSchema } from "./models/ath.model";
 import { BracketInitial, BracketInitialSchema } from "./models/bracketInitial.model";
