@@ -27,20 +27,20 @@ export class CompetitionEntity implements ICompetition {
 	info: IInfo[];
 	competitionResults: ICompetitionResult[];
 
-	constructor(competitionResult: ICompetition) {
-		this._id = competitionResult._id;
-		this.newCompetitionForm = competitionResult.newCompetitionForm;
-		this.participantFormList = competitionResult.participantFormList;
-		this.athList = competitionResult.athList;
-		this.refList = competitionResult.refList;
-		this.formulae = competitionResult.formulae;
-		this.groups = competitionResult.groups;
-		this.groupsInitial = competitionResult.groupsInitial;
-		this.groupsResults = competitionResult.groupsResults;
-		this.bracketsInitial = competitionResult.bracketsInitial;
-		this.bracketsResults = competitionResult.bracketsResults;
-		this.info = competitionResult.info;
-		this.competitionResults = competitionResult.competitionResults;
+	constructor(competition: ICompetition) {
+		this._id = competition._id;
+		this.newCompetitionForm = competition.newCompetitionForm;
+		this.participantFormList = competition.participantFormList;
+		this.athList = competition.athList;
+		this.refList = competition.refList;
+		this.formulae = competition.formulae;
+		this.groups = competition.groups;
+		this.groupsInitial = competition.groupsInitial;
+		this.groupsResults = competition.groupsResults;
+		this.bracketsInitial = competition.bracketsInitial;
+		this.bracketsResults = competition.bracketsResults;
+		this.info = competition.info;
+		this.competitionResults = competition.competitionResults;
 	}
 
 }

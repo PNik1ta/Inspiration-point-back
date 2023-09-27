@@ -232,6 +232,7 @@ export class CompetitionService {
 		competitionResultEntity.newCompetitionForm = dto.newCompetitionForm;
 		competitionResultEntity.participantFormList = dto.participantFormList;
 		competitionResultEntity.refList = dto.refList;
+		competitionResultEntity.competitionResults = dto.competitionResults;
 
 		const updatedCompetitionResult = await this.competitionRepository.update(competitionResultEntity);
 
