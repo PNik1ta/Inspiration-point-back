@@ -10,8 +10,9 @@ import { INewCompetitionForm } from "../../shared/interfaces/newCompetitionForm.
 import { IParticipantForm } from "../../shared/interfaces/participantForm.interface";
 import { IRef } from "../../shared/interfaces/ref.interface";
 import { IGroup } from "../../shared/interfaces/group.interface";
+import { ICompetitionResult } from "../../shared/interfaces/competitionResults.interface";
 
-export class UpdateCompetitionResultDto {
+export class CreateCompetitionDto {
 	@ApiProperty({
 		description: 'New competition form'
 	})
@@ -66,4 +67,9 @@ export class UpdateCompetitionResultDto {
 		description: 'Information about competition'
 	})
 	info: IInfo[];
+
+	@ApiProperty({
+		description: 'Competition result'
+	})
+	competitionResults: ICompetitionResult[];
 }

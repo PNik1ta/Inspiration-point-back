@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
 
 import { BaseResponse } from "../shared/classes/base-response";
-import { CompetitionResultEntity } from "./entities/competitionResult.entity";
-import { CompetitionResultRepository } from "./repositories/competitionResult.repository";
-import { CompetitionResult } from "./models/competitionResult.model";
+import { CompetitionEntity } from "./entities/competition.entity";
+import { CompetitionRepository } from "./repositories/competition.repository";
+import { Competition } from "./models/competition.model";
 
-import { CreateCompetitionResultDto } from "./dto/create-competition-result.dto";
-import { UpdateCompetitionResultDto } from "./dto/update-competition-result.dto";
+import { CreateCompetitionDto } from "./dto/create-competition.dto";
+import { UpdateCompetitionDto } from "./dto/update-competition.dto";
 
 import { COMPETITION_RESULT_CREATE_ERROR, COMPETITION_RESULT_FIND_ERROR, COMPETITION_RESULT_UPDATE_ERROR } from "../shared/errors/competition-result-errors";
 import { COMPETITION_RESULT_CREATE, COMPETITION_RESULT_DELETED, COMPETITION_RESULT_FIND_ALL, COMPETITION_RESULT_FIND_ONE, COMPETITION_RESULT_UPDATED } from "../shared/messages/competition-result-messages";
@@ -24,67 +24,67 @@ import { IParticipantForm } from "../shared/interfaces/participantForm.interface
 import { IRef } from "../shared/interfaces/ref.interface";
 
 @Injectable()
-export class CompetitionResultService {
+export class CompetitionService {
 	constructor(
-		private readonly competitionResultRepository: CompetitionResultRepository
-	) {}
+		private readonly competitionRepository: CompetitionRepository
+	) { }
 
-	async create(dto: CreateCompetitionResultDto): Promise<BaseResponse<CompetitionResult>> {
-		const entity: CompetitionResultEntity = new CompetitionResultEntity({
+	async create(dto: CreateCompetitionDto): Promise<BaseResponse<Competition>> {
+		const entity: CompetitionEntity = new CompetitionEntity({
 			...dto
 		});
 
-		const createdCompetitionResult = await this.competitionResultRepository.create(entity);
+		const createdCompetitionResult = await this.competitionRepository.create(entity);
 
 		if (!createdCompetitionResult) {
 			throw new Error(COMPETITION_RESULT_CREATE_ERROR);
 		}
 
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_CREATE, createdCompetitionResult)
+		return new BaseResponse<Competition>(COMPETITION_RESULT_CREATE, createdCompetitionResult)
 	}
 
-	async findAll(): Promise<BaseResponse<CompetitionResult[]>> {
-		const competitionResults = await this.competitionResultRepository.findAll();
+	async findAll(): Promise<BaseResponse<Competition[]>> {
+		const competitionResults = await this.competitionRepository.findAll();
 
 		if (!competitionResults) {
 			throw new Error(COMPETITION_RESULT_FIND_ERROR);
 		}
 
-		return new BaseResponse<CompetitionResult[]>(COMPETITION_RESULT_FIND_ALL, competitionResults);
+		return new BaseResponse<Competition[]>(COMPETITION_RESULT_FIND_ALL, competitionResults);
 	}
 
-	async findById(id: string): Promise<BaseResponse<CompetitionResult>> {
-		const competitionResult = await this.competitionResultRepository.findById(id);
+	async findById(id: string): Promise<BaseResponse<Competition>> {
+		const competitionResult = await this.competitionRepository.findById(id);
 
 		if (!competitionResult) {
-			return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ERROR, null);
+			return new BaseResponse<Competition>(COMPETITION_RESULT_FIND_ERROR, null);
 		}
 
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ONE, competitionResult);
+		return new BaseResponse<Competition>(COMPETITION_RESULT_FIND_ONE, competitionResult);
 	}
 
-	async findByCompetitionName(name: string): Promise<BaseResponse<CompetitionResult>> {
-		const competitionResult = await this.competitionResultRepository.findByCompetitionName(name);
+	async findByCompetitionName(name: string): Promise<BaseResponse<Competition>> {
+		const competitionResult = await this.competitionRepository.findByCompetitionName(name);
 
 		if (!competitionResult) {
-			return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ERROR, null);
+			return new BaseResponse<Competition>(COMPETITION_RESULT_FIND_ERROR, null);
 		}
 
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ONE, competitionResult);
+		return new BaseResponse<Competition>(COMPETITION_RESULT_FIND_ONE, competitionResult);
 	}
 
-	async findByCompetitionId(compId: string): Promise<BaseResponse<CompetitionResult>> {
-		const competitionResult = await this.competitionResultRepository.findByCompetitionId(compId);
+	async findByCompetitionId(compId: string): Promise<BaseResponse<Competition>> {
+		const competitionResult = await this.competitionRepository.findByCompetitionId(compId);
 
 		if (!competitionResult) {
-			return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ERROR, null);
+			return new BaseResponse<Competition>(COMPETITION_RESULT_FIND_ERROR, null);
 		}
 
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_FIND_ONE, competitionResult);
+		return new BaseResponse<Competition>(COMPETITION_RESULT_FIND_ONE, competitionResult);
 	}
 
 	async findAthList(id: string): Promise<BaseResponse<IAth[]>> {
-		const result = await this.competitionResultRepository.findAthList(id);
+		const result = await this.competitionRepository.findAthList(id);
 
 		if (!result) {
 			return new BaseResponse<IAth[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -94,7 +94,7 @@ export class CompetitionResultService {
 	}
 
 	async findBracketsInitial(id: string): Promise<BaseResponse<IBracketInitial[]>> {
-		const result = await this.competitionResultRepository.findBracketInitial(id);
+		const result = await this.competitionRepository.findBracketInitial(id);
 
 		if (!result) {
 			return new BaseResponse<IBracketInitial[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -104,7 +104,7 @@ export class CompetitionResultService {
 	}
 
 	async findBracketResults(id: string): Promise<BaseResponse<IBracketResult[]>> {
-		const result = await this.competitionResultRepository.findBracketResults(id);
+		const result = await this.competitionRepository.findBracketResults(id);
 
 		if (!result) {
 			return new BaseResponse<IBracketResult[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -114,7 +114,7 @@ export class CompetitionResultService {
 	}
 
 	async findFormulae(id: string): Promise<BaseResponse<IFormulae>> {
-		const result = await this.competitionResultRepository.findFormulae(id);
+		const result = await this.competitionRepository.findFormulae(id);
 
 		if (!result) {
 			return new BaseResponse<IFormulae>(COMPETITION_RESULT_FIND_ERROR, null);
@@ -124,7 +124,7 @@ export class CompetitionResultService {
 	}
 
 	async findGroups(id: string): Promise<BaseResponse<IGroup[]>> {
-		const result = await this.competitionResultRepository.findGroups(id);
+		const result = await this.competitionRepository.findGroups(id);
 
 		if (!result) {
 			return new BaseResponse<IGroup[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -134,7 +134,7 @@ export class CompetitionResultService {
 	}
 
 	async findGroupsInitial(id: string): Promise<BaseResponse<IGroupInitial[]>> {
-		const result = await this.competitionResultRepository.findGroupsInitial(id);
+		const result = await this.competitionRepository.findGroupsInitial(id);
 
 		if (!result) {
 			return new BaseResponse<IGroupInitial[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -144,7 +144,7 @@ export class CompetitionResultService {
 	}
 
 	async findGroupsResults(id: string): Promise<BaseResponse<IGroupResult[]>> {
-		const result = await this.competitionResultRepository.findGroupsResult(id);
+		const result = await this.competitionRepository.findGroupsResult(id);
 
 		if (!result) {
 			return new BaseResponse<IGroupResult[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -154,7 +154,7 @@ export class CompetitionResultService {
 	}
 
 	async findInfos(id: string): Promise<BaseResponse<IInfo[]>> {
-		const result = await this.competitionResultRepository.findInfos(id);
+		const result = await this.competitionRepository.findInfos(id);
 
 		if (!result) {
 			return new BaseResponse<IInfo[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -164,7 +164,7 @@ export class CompetitionResultService {
 	}
 
 	async findNewCompetitionForm(id: string): Promise<BaseResponse<INewCompetitionForm>> {
-		const result = await this.competitionResultRepository.findNewCompetitionForm(id);
+		const result = await this.competitionRepository.findNewCompetitionForm(id);
 
 		if (!result) {
 			return new BaseResponse<INewCompetitionForm>(COMPETITION_RESULT_FIND_ERROR, null);
@@ -174,7 +174,7 @@ export class CompetitionResultService {
 	}
 
 	async findParticipantFormList(id: string): Promise<BaseResponse<IParticipantForm[]>> {
-		const result = await this.competitionResultRepository.findParticipantFormList(id);
+		const result = await this.competitionRepository.findParticipantFormList(id);
 
 		if (!result) {
 			return new BaseResponse<IParticipantForm[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -184,7 +184,7 @@ export class CompetitionResultService {
 	}
 
 	async findRefList(id: string): Promise<BaseResponse<IRef[]>> {
-		const result = await this.competitionResultRepository.findRefList(id);
+		const result = await this.competitionRepository.findRefList(id);
 
 		if (!result) {
 			return new BaseResponse<IRef[]>(COMPETITION_RESULT_FIND_ERROR, []);
@@ -193,34 +193,34 @@ export class CompetitionResultService {
 		return new BaseResponse<IRef[]>(COMPETITION_RESULT_FIND_ONE, result.refList);
 	}
 
-	async delete(id: string): Promise<BaseResponse<CompetitionResult>> {
-		await this.competitionResultRepository.delete(id);	
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_DELETED);
+	async delete(id: string): Promise<BaseResponse<Competition>> {
+		await this.competitionRepository.delete(id);
+		return new BaseResponse<Competition>(COMPETITION_RESULT_DELETED);
 	}
 
-	async deleteAll(): Promise<BaseResponse<CompetitionResult>> {
-		await this.competitionResultRepository.deleteAll();	
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_DELETED);
+	async deleteAll(): Promise<BaseResponse<Competition>> {
+		await this.competitionRepository.deleteAll();
+		return new BaseResponse<Competition>(COMPETITION_RESULT_DELETED);
 	}
 
-	async deleteByCompetitionName(name: string): Promise<BaseResponse<CompetitionResult>> {
-		await this.competitionResultRepository.deleteByCompetitionName(name);	
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_DELETED);
+	async deleteByCompetitionName(name: string): Promise<BaseResponse<Competition>> {
+		await this.competitionRepository.deleteByCompetitionName(name);
+		return new BaseResponse<Competition>(COMPETITION_RESULT_DELETED);
 	}
 
-	async deleteByCompetitionId(id: string): Promise<BaseResponse<CompetitionResult>> {
-		await this.competitionResultRepository.deleteByCompetitionId(id);	
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_DELETED);
+	async deleteByCompetitionId(id: string): Promise<BaseResponse<Competition>> {
+		await this.competitionRepository.deleteByCompetitionId(id);
+		return new BaseResponse<Competition>(COMPETITION_RESULT_DELETED);
 	}
 
-	async update(id: string, dto: UpdateCompetitionResultDto): Promise<BaseResponse<CompetitionResult>> {
-		const competitionResult = await this.competitionResultRepository.findById(id);
+	async update(id: string, dto: UpdateCompetitionDto): Promise<BaseResponse<Competition>> {
+		const competitionResult = await this.competitionRepository.findById(id);
 
 		if (!competitionResult) {
 			throw new Error(COMPETITION_RESULT_FIND_ERROR);
 		}
 
-		const competitionResultEntity = new CompetitionResultEntity(competitionResult);
+		const competitionResultEntity = new CompetitionEntity(competitionResult);
 		competitionResultEntity.athList = dto.athList;
 		competitionResultEntity.bracketsInitial = dto.bracketsInitial;
 		competitionResultEntity.bracketsResults = dto.bracketsResults;
@@ -233,12 +233,12 @@ export class CompetitionResultService {
 		competitionResultEntity.participantFormList = dto.participantFormList;
 		competitionResultEntity.refList = dto.refList;
 
-		const updatedCompetitionResult = await this.competitionResultRepository.update(competitionResultEntity);
+		const updatedCompetitionResult = await this.competitionRepository.update(competitionResultEntity);
 
 		if (!updatedCompetitionResult) {
 			throw new Error(COMPETITION_RESULT_UPDATE_ERROR);
 		}
 
-		return new BaseResponse<CompetitionResult>(COMPETITION_RESULT_UPDATED);
+		return new BaseResponse<Competition>(COMPETITION_RESULT_UPDATED);
 	}
 }

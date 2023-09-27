@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
-import { CompetitionResultService } from "./competitionResult.service";
+import { CompetitionService } from "./competition.service";
 import { BaseResponse } from "../shared/classes/base-response";
-import { CompetitionResult } from "./models/competitionResult.model";
+import { Competition } from "./models/competition.model";
 
-import { CreateCompetitionResultDto } from "./dto/create-competition-result.dto";
-import { UpdateCompetitionResultDto } from "./dto/update-competition-result.dto";
+import { CreateCompetitionDto } from "./dto/create-competition.dto";
+import { UpdateCompetitionDto } from "./dto/update-competition.dto";
 
 import { Ath } from "./models/ath.model";
 import { IAth } from "../shared/interfaces/ath.interface";
@@ -41,20 +41,20 @@ import { ParticipantForm } from "./models/participantForm.model";
 import { IRef } from "../shared/interfaces/ref.interface";
 import { Ref } from "./models/ref.model";
 
-@Controller('competitionResult')
-@ApiTags('competitionResult')
-export class CompetitionResultController {
+@Controller('competition')
+@ApiTags('competition')
+export class CompetitionController {
 	constructor(
-		private readonly competitionResultService: CompetitionResultService
+		private readonly competitionResultService: CompetitionService
 	) { }
 
 	@ApiOkResponse({
 		description: 'Created competition result',
-		type: BaseResponse<CompetitionResult>
+		type: BaseResponse<Competition>
 	})
 	@Post()
 	@HttpCode(201)
-	create(@Body() dto: CreateCompetitionResultDto): Promise<BaseResponse<CompetitionResult>> {
+	create(@Body() dto: CreateCompetitionDto): Promise<BaseResponse<Competition>> {
 		console.log(dto.groups);
 
 		return this.competitionResultService.create(dto);
@@ -62,42 +62,42 @@ export class CompetitionResultController {
 
 	@ApiOkResponse({
 		description: 'All competition results',
-		type: CompetitionResult,
+		type: Competition,
 		isArray: true
 	})
 	@Get()
 	@HttpCode(200)
-	findAll(): Promise<BaseResponse<CompetitionResult[]>> {
+	findAll(): Promise<BaseResponse<Competition[]>> {
 		return this.competitionResultService.findAll();
 	}
 
 	@ApiOkResponse({
 		description: 'competition result by id',
-		type: CompetitionResult,
+		type: Competition,
 	})
 	@Get(':id')
 	@HttpCode(200)
-	findById(@Param('id') id: string): Promise<BaseResponse<CompetitionResult>> {
+	findById(@Param('id') id: string): Promise<BaseResponse<Competition>> {
 		return this.competitionResultService.findById(id);
 	}
 
 	@ApiOkResponse({
 		description: 'competition result by competition id',
-		type: CompetitionResult,
+		type: Competition,
 	})
 	@Get('find-by-competition-id/:compId')
 	@HttpCode(200)
-	findByCompetitionId(@Param('compId') compId: string): Promise<BaseResponse<CompetitionResult>> {
+	findByCompetitionId(@Param('compId') compId: string): Promise<BaseResponse<Competition>> {
 		return this.competitionResultService.findByCompetitionId(compId);
 	}
 
 	@ApiOkResponse({
 		description: 'competition result by competition name',
-		type: CompetitionResult,
+		type: Competition,
 	})
 	@Get('find-by-competition-name/:name')
 	@HttpCode(200)
-	findByCompetitionName(@Param('name') name: string): Promise<BaseResponse<CompetitionResult>> {
+	findByCompetitionName(@Param('name') name: string): Promise<BaseResponse<Competition>> {
 		return this.competitionResultService.findByCompetitionName(name);
 	}
 
@@ -222,51 +222,51 @@ export class CompetitionResultController {
 
 	@ApiOkResponse({
 		description: 'Deleted competition result',
-		type: CompetitionResult,
+		type: Competition,
 	})
 	@Delete(':id')
 	@HttpCode(200)
-	delete(@Param('id') id: string): Promise<BaseResponse<CompetitionResult>> {
+	delete(@Param('id') id: string): Promise<BaseResponse<Competition>> {
 		return this.competitionResultService.delete(id);
 	}
 
 	@ApiOkResponse({
 		description: 'Deleted competition result',
-		type: CompetitionResult,
+		type: Competition,
 	})
 	@Delete('delete-all')
 	@HttpCode(200)
-	deleteAll(): Promise<BaseResponse<CompetitionResult>> {
+	deleteAll(): Promise<BaseResponse<Competition>> {
 		return this.competitionResultService.deleteAll();
 	}
 
 	@ApiOkResponse({
 		description: 'Deleted competition result',
-		type: CompetitionResult,
+		type: Competition,
 	})
 	@Delete('delete-by-competition-name/:name')
 	@HttpCode(200)
-	deleteByCompetitionName(@Param('name') name: string): Promise<BaseResponse<CompetitionResult>> {
+	deleteByCompetitionName(@Param('name') name: string): Promise<BaseResponse<Competition>> {
 		return this.competitionResultService.deleteByCompetitionName(name);
 	}
 
 	@ApiOkResponse({
 		description: 'Deleted competition result',
-		type: CompetitionResult,
+		type: Competition,
 	})
 	@Delete('delete-by-competition-id/:id')
 	@HttpCode(200)
-	deleteByCompetitionId(@Param('id') id: string): Promise<BaseResponse<CompetitionResult>> {
+	deleteByCompetitionId(@Param('id') id: string): Promise<BaseResponse<Competition>> {
 		return this.competitionResultService.deleteByCompetitionId(id);
 	}
 
 	@ApiOkResponse({
 		description: 'Updated competition result',
-		type: CompetitionResult,
+		type: Competition,
 	})
 	@Put(':id')
 	@HttpCode(200)
-	update(@Param('id') id: string, @Body() dto: UpdateCompetitionResultDto): Promise<BaseResponse<CompetitionResult>> {
+	update(@Param('id') id: string, @Body() dto: UpdateCompetitionDto): Promise<BaseResponse<Competition>> {
 		return this.competitionResultService.update(id, dto);
 	}
 }

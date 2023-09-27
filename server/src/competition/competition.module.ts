@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { CompetitionResultController } from "./competitionResult.controller";
-import { CompetitionResultRepository } from "./repositories/competitionResult.repository";
-import { CompetitionResultService } from "./competitionResult.service";
+import { CompetitionController } from "./competition.controller";
+import { CompetitionRepository } from "./repositories/competition.repository";
+import { CompetitionService } from "./competition.service";
 
-import { CompetitionResult, CompetitionResultSchema } from "./models/competitionResult.model";
+import { Competition, CompetitionSchema } from "./models/competition.model";
 import { Ath, AthSchema } from "./models/ath.model";
 import { BracketInitial, BracketInitialSchema } from "./models/bracketInitial.model";
 import { BracketResult, BracketResultSchema } from "./models/bracketResult.model";
@@ -17,12 +17,13 @@ import { NewCompetitionForm, NewCompetitionFormSchema } from "./models/newCompet
 import { ParticipantForm, ParticipantFormSchema } from "./models/participantForm.model";
 import { Ref, RefSchema } from "./models/ref.model";
 import { Group, GroupSchema } from "./models/group.model";
+import { CompetitionResult, CompetitionResultSchema } from "./models/competitionResults.model";
 
 @Module({
-	controllers: [CompetitionResultController],
-	providers: [CompetitionResultRepository, CompetitionResultService],
+	controllers: [CompetitionController],
+	providers: [CompetitionRepository, CompetitionService],
 	imports: [MongooseModule.forFeature([
-		{ name: CompetitionResult.name, schema: CompetitionResultSchema },
+		{ name: Competition.name, schema: CompetitionSchema },
 		{ name: Ath.name, schema: AthSchema },
 		{ name: BracketInitial.name, schema: BracketInitialSchema },
 		{ name: BracketResult.name, schema: BracketResultSchema },
@@ -33,7 +34,8 @@ import { Group, GroupSchema } from "./models/group.model";
 		{ name: NewCompetitionForm.name, schema: NewCompetitionFormSchema },
 		{ name: ParticipantForm.name, schema: ParticipantFormSchema },
 		{ name: Ref.name, schema: RefSchema },
-		{ name: Group.name, schema: GroupSchema }
+		{ name: Group.name, schema: GroupSchema },
+		{ name: CompetitionResult.name, schema: CompetitionResultSchema }
 	])],
 })
-export class CompetitionResultModule {}
+export class CompetitionModule { }

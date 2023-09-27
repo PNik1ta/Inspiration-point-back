@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { ICompetitionResult } from "../../shared/interfaces/competition-result.interface";
+import { ICompetition } from "../../shared/interfaces/competition-result.interface";
 import { IAth } from "../../shared/interfaces/ath.interface";
 import { IBracketInitial } from "../../shared/interfaces/bracketInitial.interface";
 import { IBracketResult } from "../../shared/interfaces/bracketResult.interface";
@@ -23,9 +23,11 @@ import { BracketResultSchema } from "./bracketResult.model";
 import { InfoSchema } from "./info.model";
 import { IGroup } from "../../shared/interfaces/group.interface";
 import { GroupSchema } from "./group.model";
+import { CompetitionResultSchema } from "./competitionResults.model";
+import { ICompetitionResult } from "../../shared/interfaces/competitionResults.interface";
 
 @Schema()
-export class CompetitionResult extends Document implements ICompetitionResult {
+export class Competition extends Document implements ICompetition {
 	@Prop({ required: false, type: NewCompetitionFormSchema })
 	newCompetitionForm: INewCompetitionForm;
 
@@ -58,6 +60,9 @@ export class CompetitionResult extends Document implements ICompetitionResult {
 
 	@Prop({ required: false, type: [InfoSchema] })
 	info: IInfo[];
+
+	@Prop({ required: false, type: [CompetitionResultSchema] })
+	competitionResults: ICompetitionResult[];
 }
 
-export const CompetitionResultSchema = SchemaFactory.createForClass(CompetitionResult);
+export const CompetitionSchema = SchemaFactory.createForClass(Competition);
